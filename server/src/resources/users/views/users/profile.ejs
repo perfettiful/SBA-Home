@@ -1,0 +1,15 @@
+<h1>User Profile</h1>
+<% if (user) { %>
+  <h2><%= user.name.first %>&nbsp;<%= user.name.last %></h2>
+  <h3>"<%= user.name.alias %>"</h3>
+  <hr />
+  <h4>Contact</h4>
+  <p><%= user.email %></p>
+  <hr />
+  <a href="/users/auth">Check if already logged in</a>
+  <a href="/users/auth/logout">Log out</a>
+<% } else { %>
+  <h2>No such user found</h2>
+  <hr />
+  <a href="/">Back to Single Page Application</a>
+<% } %>
