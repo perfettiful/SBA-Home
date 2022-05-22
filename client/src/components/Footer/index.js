@@ -18,15 +18,16 @@ const Footer = () => {
         )}
         <h4>
           Find us on {' '}
-          <span
+          <a href={`https://github.com/perfettiful/SBA-Home`}><span
             className="emoji"
             role="img"
             aria-label="heart"
             aria-hidden="false"
           >
-          <img src={githubIcon}/>
+            <img src={githubIcon} />
+
           </span>{' '}
-          Github 
+            Github </a>
         </h4>
       </div>
     </footer>
