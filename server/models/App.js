@@ -40,6 +40,6 @@ const thoughtSchema = new Schema({
   ],
 });
 
-const Thought = model('Thought', thoughtSchema);
+const Thought = model('App', thoughtSchema);
 
-module.exports = Thought;
+module.exports = App;

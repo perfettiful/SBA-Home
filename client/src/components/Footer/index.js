@@ -1,5 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import githubIcon from "./github-icon.png"
 
 const Footer = () => {
   const location = useLocation();
@@ -16,16 +17,16 @@ const Footer = () => {
           </button>
         )}
         <h4>
-          Made with{' '}
+          Find us on {' '}
           <span
             className="emoji"
             role="img"
             aria-label="heart"
             aria-hidden="false"
           >
-            ❤️
+          <img src={githubIcon}/>
           </span>{' '}
-          by the Tech Thoughts team.
+          Github 
         </h4>
       </div>
     </footer>
