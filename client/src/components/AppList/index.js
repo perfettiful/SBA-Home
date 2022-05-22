@@ -2,14 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AppList = ({
-  Apps,
+  thoughts,
   title,
   showTitle = true,
   showUsername = true,
 }) => {
-  if (!Apps.length) {
-    return <h3>No Apps Yet</h3>;
-  }
 
   return (
     <div>

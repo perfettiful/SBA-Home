@@ -24,8 +24,8 @@ const Home = () => {
             <div>Loading...</div>
           ) : (
             <AppList
-              Apps={Apps}
-              title="Some Feed for App(s)..."
+              thoughts={thoughts}
+              title="."
             />
           )}
         </div>

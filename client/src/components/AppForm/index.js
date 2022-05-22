@@ -8,7 +8,7 @@ import { QUERY_AppS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AppForm = () => {
-  const [AppText, setAppText] = useState('');
+  const [thoughtText, setThoughtText] = useState('');
 
   const [characterCount, setCharacterCount] = useState(0);
 
@@ -62,7 +62,7 @@ const AppForm = () => {
 
   return (
     <div>
-      <h3>What's on your techy mind?</h3>
+      <h3>Welcome to the SBA Rest API, where businesses and government are made transparent.</h3>
 
       {Auth.loggedIn() ? (
         <>
