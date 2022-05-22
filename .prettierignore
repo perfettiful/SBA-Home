@@ -1,5 +1,0 @@
-/client/**
-/node_modules/**
-/server/build/**
-package-lock.json
-package.json
