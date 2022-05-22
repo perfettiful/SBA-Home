@@ -15,7 +15,7 @@ export const QUERY_USER = gql`
   }
 `;
 
-export const QUERY_AppS = gql`
+export const QUERY_APPS = gql`
   query getApps {
     Apps {
       _id
@@ -26,7 +26,7 @@ export const QUERY_AppS = gql`
   }
 `;
 
-export const QUERY_SINGLE_App = gql`
+export const QUERY_SINGLE_APP = gql`
   query getSingleApp($AppId: ID!) {
     App(AppId: $AppId) {
       _id

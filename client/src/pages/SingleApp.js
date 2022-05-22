@@ -4,9 +4,6 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import CommentList from '../components/CommentList';
-import CommentForm from '../components/CommentForm';
-
 import { QUERY_SINGLE_App } from '../utils/queries';
 
 const SingleApp = () => {
@@ -45,12 +42,6 @@ const SingleApp = () => {
         </blockquote>
       </div>
 
-      <div className="my-5">
-        <CommentList comments={App.comments} />
-      </div>
-      <div className="m-3 p-4" style={{ border: '1px dotted #1a1a1a' }}>
-        <CommentForm AppId={App._id} />
-      </div>
     </div>
   );
 };

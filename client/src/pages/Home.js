@@ -4,10 +4,10 @@ import { useQuery } from '@apollo/client';
 import AppList from '../components/AppList';
 import AppForm from '../components/AppForm';
 
-import { QUERY_AppS } from '../utils/queries';
+import { QUERY_APPS } from '../utils/queries';
 
 const Home = () => {
-  const { loading, data } = useQuery(QUERY_AppS);
+  const { loading, data } = useQuery(QUERY_APPS);
   const Apps = data?.Apps || [];
 
   return (

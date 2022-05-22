@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
-import { ADD_App } from '../../utils/mutations';
+import { ADD_APP } from '../../utils/mutations';
 import { QUERY_AppS, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
@@ -18,7 +18,7 @@ const AppForm = () => {
         const { Apps } = cache.readQuery({ query: QUERY_AppS });
 
         cache.writeQuery({
-          query: QUERY_AppS,
+          query: QUERY_APPS,
           data: { Apps: [addApp, ...Apps] },
         });
       } catch (e) {
