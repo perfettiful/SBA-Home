@@ -12,9 +12,9 @@ export const LOGIN_USER = gql`
   }
 `;
 
-export const ADD_USER = gql`
-  mutation addUser($username: String!, $email: String!, $password: String!) {
-    addUser(username: $username, email: $email, password: $password) {
+export const REGISTER_USER = gql`
+  mutation register($username: String!, $email: String!, $password: String!) {
+    register(username: $username, email: $email, password: $password) {
       token
       user {
         _id
@@ -24,9 +24,9 @@ export const ADD_USER = gql`
   }
 `;
 
-export const ADD_App = gql`
+export const ADD_APP = gql`
   mutation addApp($AppText: String!) {
-    addApp(AppText: $AppText) {
+    addApp(appText: $appText) {
       _id
       AppText
       AppAuthor
@@ -34,22 +34,6 @@ export const ADD_App = gql`
       comments {
         _id
         commentText
-      }
-    }
-  }
-`;
-
-export const ADD_COMMENT = gql`
-  mutation addComment($AppId: ID!, $commentText: String!) {
-    addComment(AppId: $AppId, commentText: $commentText) {
-      _id
-      AppText
-      AppAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-        createdAt
       }
     }
   }
