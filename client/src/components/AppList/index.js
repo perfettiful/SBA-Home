@@ -2,43 +2,43 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const AppList = ({
-  thoughts,
-  title,
+  apps,
+  appTitle,
   showTitle = true,
   showUsername = true,
 }) => {
 
   return (
     <div>
-      {showTitle && <h3>{title}</h3>}
-      {Apps &&
-        Apps.map((App) => (
-          <div key={App._id} className="card mb-3">
+      {showTitle && <h3>{appTitle}</h3>}
+      {apps &&
+        apps.map((app) => (
+          <div key={app._id} className="card mb-3">
             <h4 className="card-header bg-primary text-light p-2 m-0">
               {showUsername ? (
                 <Link
                   className="text-light"
-                  to={`/profiles/${App.AppAuthor}`}
+                  to={`/profiles/${app.appOwner}`}
                 >
-                  {App.AppAuthor} <br />
+                  {app.appOwner} <br />
                   <span style={{ fontSize: '1rem' }}>
-                    had this App on {App.createdAt}
+                    had this App on {app.createdAt}
                   </span>
                 </Link>
               ) : (
                 <>
                   <span style={{ fontSize: '1rem' }}>
-                    You had this App on {App.createdAt}
+                    You had this App on {app.createdAt}
                   </span>
                 </>
               )}
             </h4>
             <div className="card-body bg-light p-2">
-              <p>{App.AppText}</p>
+              <p>{app.appTitle}</p>
             </div>
             <Link
               className="btn btn-primary btn-block btn-squared"
-              to={`/Apps/${App._id}`}
+              to={`/apps/${app._id}`}
             >
               Join the discussion on this App.
             </Link>

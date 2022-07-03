@@ -8,7 +8,7 @@ import { QUERY_APPS } from '../utils/queries';
 
 const Home = () => {
   const { loading, data } = useQuery(QUERY_APPS);
-  const Apps = data?.Apps || [];
+  const apps = data?.Apps || [];
 
   return (
     <main>
@@ -23,10 +23,11 @@ const Home = () => {
           {loading ? (
             <div>Loading...</div>
           ) : (
-            <AppList
-              thoughts={thoughts}
-              title="."
-            />
+            null
+            // <AppList
+            //   apps={apps}
+            //   title="."
+            // />
           )}
         </div>
       </div>

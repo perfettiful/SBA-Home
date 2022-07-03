@@ -4,13 +4,13 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@apollo/client';
 
-import { QUERY_SINGLE_App } from '../utils/queries';
+import { QUERY_SINGLE_APP } from '../utils/queries';
 
 const SingleApp = () => {
   // Use `useParams()` to retrieve value of the route parameter `:profileId`
   const { AppId } = useParams();
 
-  const { loading, data } = useQuery(QUERY_SINGLE_App, {
+  const { loading, data } = useQuery(QUERY_SINGLE_APP, {
     // pass URL parameter
     variables: { AppId: AppId },
   });

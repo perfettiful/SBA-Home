@@ -3,23 +3,21 @@ import { Link } from 'react-router-dom';
 import { useMutation } from '@apollo/client';
 
 import { ADD_APP } from '../../utils/mutations';
-import { QUERY_AppS, QUERY_ME } from '../../utils/queries';
+import { QUERY_APPS, QUERY_ME } from '../../utils/queries';
 
 import Auth from '../../utils/auth';
 
 const AppForm = () => {
-  const [thoughtText, setThoughtText] = useState('');
+  const [appText, setAppText] = useState('');
 
-  const [characterCount, setCharacterCount] = useState(0);
-
-  const [addApp, { error }] = useMutation(ADD_App, {
+  const [addApp, { error }] = useMutation(ADD_APP, {
     update(cache, { data: { addApp } }) {
       try {
-        const { Apps } = cache.readQuery({ query: QUERY_AppS });
+        const { apps } = cache.readQuery({ query: QUERY_APPS });
 
         cache.writeQuery({
           query: QUERY_APPS,
-          data: { Apps: [addApp, ...Apps] },
+          data: { apps: [addApp, ...apps] },
         });
       } catch (e) {
         console.error(e);
@@ -29,7 +27,7 @@ const AppForm = () => {
       const { me } = cache.readQuery({ query: QUERY_ME });
       cache.writeQuery({
         query: QUERY_ME,
-        data: { me: { ...me, Apps: [...me.Apps, addApp] } },
+        data: { me: { ...me, apps: [...me.apps, addApp] } },
       });
     },
   });
@@ -40,8 +38,8 @@ const AppForm = () => {
     try {
       const { data } = await addApp({
         variables: {
-          AppText,
-          AppAuthor: Auth.getProfile().data.username,
+          appText,
+          appAuthor: Auth.getProfile().data.username,
         },
       });
 
@@ -54,10 +52,8 @@ const AppForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    if (name === 'AppText' && value.length <= 280) {
-      setAppText(value);
-      setCharacterCount(value.length);
-    }
+    setAppText(value);
+
   };
 
   return (
@@ -66,22 +62,16 @@ const AppForm = () => {
 
       {Auth.loggedIn() ? (
         <>
-          <p
-            className={`m-0 ${
-              characterCount === 280 || error ? 'text-danger' : ''
-            }`}
-          >
-            Character Count: {characterCount}/280
-          </p>
+
           <form
             className="flex-row justify-center justify-space-between-md align-center"
             onSubmit={handleFormSubmit}
           >
             <div className="col-12 col-lg-9">
               <textarea
-                name="AppText"
+                name="appText"
                 placeholder="Here's a new App..."
-                value={AppText}
+                value={appText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}

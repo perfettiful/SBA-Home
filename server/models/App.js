@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const MUUID = require('uuid-mongodb');
 
