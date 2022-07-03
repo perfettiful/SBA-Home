@@ -3,11 +3,21 @@ const dateFormat = require('../utils/dateFormat');
 const bcrypt = require('bcryptjs');
 
 const MUUID = require('uuid-mongodb');
+const generateApiKey = require('generate-api-key');
 
 const appSchema = new Schema({
-  appKey: {
+  appId: {
     type: String,
     default: MUUID.v4().toString()
+  },
+
+  appKey: {
+    type: String,
+    default: generateApiKey({
+      method: 'string',
+      min: 25,
+      prefix: 'sba_api'
+    })
   },
 
   appTitle: {
@@ -17,6 +27,7 @@ const appSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
+
   appDescription: {
     type: String,
     // required: 'Please describe your app!',
@@ -24,11 +35,7 @@ const appSchema = new Schema({
     maxlength: 280,
     trim: true,
   },
-  appOwner: {
-    type: String,
-    required: true,
-    trim: true,
-  },
+
   createdAt: {
     type: Date,
     default: Date.now,
@@ -36,14 +43,17 @@ const appSchema = new Schema({
   },
 });
 
-appSchema.pre('save', async function (next) {
+appSchema.post('save', async function (document, next) {
+
   if (this.isNew || this.isModified('appKey')) {
     const saltRounds = 10;
-    this.password = await bcrypt.hash(this.appKey, saltRounds);
+    this.appKey = await bcrypt.hash(this.appKey, saltRounds);
   }
 
   next();
 });
+
+
 
 appSchema.methods.isValidKey = async function (appKey) {
   return bcrypt.compare(appKey, this.appKey);

@@ -11,9 +11,10 @@ const typeDefs = gql`
 
   type App {
     _id: ID
+    appId:String
     appKey: String
-    appText: String
-    appOwner: String
+    appTitle: String
+    appDescription: String
     createdAt: String
   }
 
@@ -33,7 +34,7 @@ const typeDefs = gql`
   type Mutation {
     register(username: String!, email: String!, password: String!): Auth
     login(email: String!, password: String!): Auth
-    addApp(appText: String!, appOwner: String!): App
+    addApp(appTitle: String!, appDescription: String!): App
     removeApp(appId: ID!): App
   }
 `;

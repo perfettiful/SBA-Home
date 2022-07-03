@@ -2,6 +2,8 @@ const { AuthenticationError } = require('apollo-server-express');
 const { User, App } = require('../models');
 const { signToken } = require('../utils/auth');
 
+const bcrypt = require('bcryptjs');
+
 const resolvers = {
   Query: {
     users: async () => {
@@ -48,22 +50,23 @@ const resolvers = {
 
       return { token, user };
     },
-    addApp: async (parent, { appText, appAuthor }, context) => {
-      if (context.user) {
-        const app = await App.create({
-          appText,
-          appOwner: context.user.username,
-        });
 
-        await User.findOneAndUpdate(
-          { _id: context.user._id },
-          { $addToSet: { apps: app._id } }
-        );
+    addApp: async (parent, { appTitle, appDescription }, context) => {
 
-        return app;
+      if (appTitle && appDescription) {
+        const newApp = await App.create({ appTitle, appDescription });
+
+        const hashedApiKey = await App.findByIdAndUpdate(
+          { _id: newApp._id },
+          { appKey: await bcrypt.hash(newApp.appKey, 10) }
+        )
+
+        return newApp;
       }
-      throw new AuthenticationError('You need to be logged in!');
+
+      throw new AuthenticationError('You need all required fields');
     },
+
     removeApp: async (parent, { AppId }, context) => {
       if (context.user) {
         const App = await App.findOneAndDelete({
