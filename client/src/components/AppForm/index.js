@@ -11,29 +11,36 @@ const AppForm = () => {
   const [formState, setFormState] = useState({});
 
   const [addApp, { error }] = useMutation(ADD_APP, {
+    
     update(cache, { data: { addApp } }) {
       try {
-        const { apps } = cache.readQuery({ query: QUERY_APPS });
+        
+        // const { apps } = cache.readQuery({ query: QUERY_APPS });
 
-        cache.writeQuery({
-          query: QUERY_APPS,
-          data: { apps: [addApp, ...apps] },
-        });
+        // cache.writeQuery({
+        //   query: QUERY_APPS,
+        //   data: { apps: [addApp, ...apps] },
+        // });
+
       } catch (e) {
         console.error(e);
       }
 
       // update me object's cache
-      const { me } = cache.readQuery({ query: QUERY_ME });
-      cache.writeQuery({
-        query: QUERY_ME,
-        data: { me: { ...me, apps: [...me.apps, addApp] } },
-      });
+      // const { me } = cache.readQuery({ query: QUERY_ME });
+      // cache.writeQuery({
+      //   query: QUERY_ME,
+      //   data: { me: { ...me, apps: [...me.apps, addApp] } },
+      // });
+
     },
-  });
+  }
+  );
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+
+    console.log("-- Form inputs ready: ",{formState} )
 
     try {
       const { data } = await addApp({
@@ -44,7 +51,15 @@ const AppForm = () => {
         },
       });
 
-      setFormState({});
+      console.log("Submitted mutation: ", {data})
+
+      setFormState({
+        ...formState,
+        appTitle: "Add App Title",
+        appDescription: "Add App Description"
+
+      });
+
     } catch (err) {
       console.error(err);
     }
@@ -54,7 +69,6 @@ const AppForm = () => {
     const { name, value } = event.target;
 
     setFormState({...formState, [name] : value});
-    console.log(formState)
 
   };
 
@@ -72,7 +86,7 @@ const AppForm = () => {
             <div className="col-12 col-lg-9">
               <textarea
                 name="appTitle"
-                placeholder="App Title"
+                placeholder="Add App Title"
                 value={formState?.appText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
@@ -80,7 +94,7 @@ const AppForm = () => {
               ></textarea>
               <textarea
                 name="appDescription"
-                placeholder="App Description"
+                placeholder="Add App Description"
                 value={formState?.appText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}

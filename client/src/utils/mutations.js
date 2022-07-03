@@ -25,7 +25,7 @@ export const REGISTER_USER = gql`
 `;
 
 export const ADD_APP = gql`
-mutation adddApp($appTitle: String!, $appDescription: String!) {
+mutation addApp($appTitle: String!, $appDescription: String!) {
   addApp(appTitle: $appTitle, appDescription: $appDescription) {
     _id
     appId

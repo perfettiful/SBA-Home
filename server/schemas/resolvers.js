@@ -53,7 +53,7 @@ const resolvers = {
 
     addApp: async (parent, { appTitle, appDescription }, context) => {
 
-      if (appTitle && appDescription) {
+      if (context.user) {
         const newApp = await App.create({ appTitle, appDescription });
 
         const hashedApiKey = await App.findByIdAndUpdate(
@@ -61,22 +61,27 @@ const resolvers = {
           { appKey: await bcrypt.hash(newApp.appKey, 10) }
         )
 
+        
+        await User.findOneAndUpdate(
+          { _id: context.user._id },
+          { $push: { apps: newApp._id } }
+        );
+
         return newApp;
       }
 
       throw new AuthenticationError('You need all required fields');
     },
 
-    removeApp: async (parent, { AppId }, context) => {
+    removeApp: async (parent, { appId }, context) => {
       if (context.user) {
         const App = await App.findOneAndDelete({
-          _id: AppId,
-          AppAuthor: context.user.username,
+          _id: appId
         });
 
         await User.findOneAndUpdate(
           { _id: context.user._id },
-          { $pull: { Apps: App._id } }
+          { $pull: { apps: app._id } }
         );
 
         return App;

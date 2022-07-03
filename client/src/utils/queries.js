@@ -16,12 +16,11 @@ export const QUERY_USER = gql`
 `;
 
 export const QUERY_APPS = gql`
-  query getApps {
+  query apps {
     apps {
       _id
       appTitle
       appDescription
-      appAuthor
       createdAt
     }
   }
@@ -51,10 +50,6 @@ query Query {
     username
     email
     password
-    apps {
-      _id
-      appId
-    }
   }
 }
 `;
