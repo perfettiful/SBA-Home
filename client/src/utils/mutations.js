@@ -25,16 +25,14 @@ export const REGISTER_USER = gql`
 `;
 
 export const ADD_APP = gql`
-  mutation addApp($AppText: String!) {
-    addApp(appText: $appText) {
-      _id
-      AppText
-      AppAuthor
-      createdAt
-      comments {
-        _id
-        commentText
-      }
-    }
+mutation adddApp($appTitle: String!, $appDescription: String!) {
+  addApp(appTitle: $appTitle, appDescription: $appDescription) {
+    _id
+    appId
+    appKey
+    appTitle
+    appDescription
+    createdAt
   }
+}
 `;
