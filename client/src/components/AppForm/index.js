@@ -8,7 +8,7 @@ import { QUERY_APPS, QUERY_ME } from '../../utils/queries';
 import Auth from '../../utils/auth';
 
 const AppForm = () => {
-  const [appText, setAppText] = useState('');
+  const [formState, setFormState] = useState({});
 
   const [addApp, { error }] = useMutation(ADD_APP, {
     update(cache, { data: { addApp } }) {
@@ -38,12 +38,13 @@ const AppForm = () => {
     try {
       const { data } = await addApp({
         variables: {
-          appText,
-          appAuthor: Auth.getProfile().data.username,
+          appTitle: formState.appTitle,
+          appDescription: formState.appDescription
+          // appAuthor: Auth.getProfile().data.username,
         },
       });
 
-      setAppText('');
+      setFormState({});
     } catch (err) {
       console.error(err);
     }
@@ -52,7 +53,8 @@ const AppForm = () => {
   const handleChange = (event) => {
     const { name, value } = event.target;
 
-    setAppText(value);
+    setFormState({...formState, [name] : value});
+    console.log(formState)
 
   };
 
@@ -69,9 +71,17 @@ const AppForm = () => {
           >
             <div className="col-12 col-lg-9">
               <textarea
-                name="appText"
-                placeholder="Here's a new App..."
-                value={appText}
+                name="appTitle"
+                placeholder="App Title"
+                value={formState?.appText}
+                className="form-input w-100"
+                style={{ lineHeight: '1.5', resize: 'vertical' }}
+                onChange={handleChange}
+              ></textarea>
+              <textarea
+                name="appDescription"
+                placeholder="App Description"
+                value={formState?.appText}
                 className="form-input w-100"
                 style={{ lineHeight: '1.5', resize: 'vertical' }}
                 onChange={handleChange}

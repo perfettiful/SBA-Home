@@ -17,10 +17,11 @@ export const QUERY_USER = gql`
 
 export const QUERY_APPS = gql`
   query getApps {
-    Apps {
+    apps {
       _id
-      AppText
-      AppAuthor
+      appTitle
+      appDescription
+      appAuthor
       createdAt
     }
   }
@@ -44,17 +45,16 @@ export const QUERY_SINGLE_APP = gql`
 `;
 
 export const QUERY_ME = gql`
-  query me {
-    me {
+query Query {
+  me {
+    _id
+    username
+    email
+    password
+    apps {
       _id
-      username
-      email
-      Apps {
-        _id
-        AppText
-        AppAuthor
-        createdAt
-      }
+      appId
     }
   }
+}
 `;
